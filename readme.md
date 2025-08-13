@@ -1,8 +1,10 @@
 # Panduan Penyiapan WSL
-## Ringkasan lengkap untuk lingkungan pengembangan Web & Analisis Data.
+Ringkasan lengkap untuk lingkungan pengembangan Web & Analisis Data.
 
-1. Pemilihan Distro & Instalasi Awal
+## 1. Pemilihan Distro & Instalasi Awal
+
 Langkah A: Persiapan Awal WSL
+
 Sebelum menginstal distro, pastikan fitur WSL sudah aktif di Windows. Buka PowerShell sebagai Administrator dan jalankan perintah berikut. Perintah ini akan mengurus semua yang diperlukan.
 
 ```console
@@ -12,6 +14,7 @@ wsl --install
 Anda mungkin perlu me-restart komputer Anda setelah proses ini selesai.
 
 Langkah B: Melihat & Menginstal Distro
+
 Setelah WSL aktif, Anda bisa melihat semua distribusi Linux yang tersedia untuk diinstal dari terminal.
 
 ```console
@@ -32,14 +35,15 @@ Untuk menginstal Arch:
 wsl --install -d Arch
 ```
 
-Rekomendasi: Ubuntu vs Arch
+**Rekomendasi: Ubuntu vs Arch**
+
 Untuk pengembangan aplikasi web, Android, dan analisis statistik dengan Python di WSL, Ubuntu adalah pilihan yang lebih praktis dan stabil, terutama bagi pemula dan profesional yang menginginkan lingkungan yang "siap pakai".
 
 Arch Linux adalah pilihan yang kuat bagi pengguna berpengalaman yang menginginkan kontrol penuh, sistem minimalis, dan akses ke perangkat lunak terbaru (bleeding-edge).
 
 Kesimpulan: Gunakan Ubuntu untuk stabilitas dan kemudahan penggunaan.
 
-2. Penyiapan Dasar WSL Ubuntu
+## 2. Penyiapan Dasar WSL Ubuntu
 Langkah pertama setelah menginstal Ubuntu adalah memperbarui sistem dan menginstal perkakas esensial.
 
 Perbarui daftar paket dan upgrade sistem:
@@ -65,14 +69,16 @@ Konfigurasi Git (ganti dengan info Anda):
 ```console
 git config --global user.name "Nama Anda"
 ```
+
 ```console
 git config --global user.email "email@anda.com"
 ```
 
-3. Integrasi Visual Studio Code
+## 3. Integrasi Visual Studio Code
+
 Prinsip utamanya adalah instal VS Code di Windows, lalu gunakan ekstensi untuk terhubung ke WSL.
 
-Unduh dan instal VS Code untuk Windows.
+[Unduh dan instal](https://code.visualstudio.com/) VS Code untuk Windows.
 
 Buka VS Code, buka panel Ekstensi (Ctrl+Shift+X).
 
@@ -80,12 +86,16 @@ Cari dan instal ekstensi "Remote - WSL" dari Microsoft.
 
 Untuk membuka proyek, navigasi ke folder proyek di terminal WSL dan jalankan:
 
+```console
 code .
+```
 
-4. Peningkatan Terminal dengan Zsh
+## 4. Peningkatan Terminal dengan Zsh
+
 Ganti shell Bash standar dengan Zsh dan plugin untuk pengalaman terminal yang jauh lebih baik.
 
 Langkah 1: Instal Zsh & Oh My Zsh
+
 Instal Zsh:
 
 ```console
@@ -101,6 +111,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 Saat diminta, setujui untuk menjadikan Zsh sebagai shell default Anda.
 
 Langkah 2: Instal Plugin
+
 Instal plugin Autosuggestions (saran berdasarkan histori):
 
 ```console
@@ -114,6 +125,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 ```
 
 Langkah 3: Aktifkan Plugin
+
 Buka file ~/.zshrc dengan editor (misal: nano ~/.zshrc) dan ubah baris plugins menjadi:
 
 ```console
@@ -126,8 +138,10 @@ Terapkan perubahan dengan membuka ulang terminal atau menjalankan:
 source ~/.zshrc
 ```
 
-5. Penyiapan Lingkungan Pengembangan
+## 5. Penyiapan Lingkungan Pengembangan
+
 a. Pengembangan Web (Node.js)
+
 Gunakan nvm (Node Version Manager) untuk mengelola versi Node.js.
 
 Instal nvm:
@@ -143,6 +157,7 @@ nvm install --lts
 ```
 
 b. Analisis Statistik (Python)
+
 Gunakan Miniconda untuk membuat lingkungan Python yang terisolasi.
 
 Unduh installer Miniconda:
@@ -175,7 +190,8 @@ Instal pustaka data science populer:
 pip install numpy pandas matplotlib scikit-learn jupyterlab
 ```
 
-6. Alat History Shell (Opsional)
+## 6. Alat History Shell (Opsional)
+
 Untuk melihat riwayat perintah dengan lebih canggih, pertimbangkan untuk menginstal salah satu dari alat berikut.
 
 Atuin: Pilihan paling kuat dengan sinkronisasi antar perangkat dan statistik.
@@ -203,3 +219,140 @@ Muat ulang terminal:
 ```console
 source ~/.zshrc
 ```
+
+## 7. Kustomisasi Shell menggunakan Starship
+
+Starship adalah prompt minimalis, super cepat, dan sangat bisa dikustomisasi untuk berbagai jenis shell. Panduan ini akan memandu Anda melalui proses instalasi dan konfigurasi Starship untuk PowerShell (Windows) dan Zsh (macOS/Linux).
+
+Sebelum memulai, pastikan Anda telah menginstal Nerd Font agar semua ikon dan simbol dapat ditampilkan dengan benar.
+
+Kunjungi Nerd Fonts dan unduh salah satu font (misalnya, FiraCode Nerd Font, MesloLGS NF, atau Hack Nerd Font).
+
+Instal font tersebut di sistem operasi Anda.
+
+Atur font yang baru diinstal sebagai font default di terminal Anda (Windows Terminal, iTerm2, Kitty, dll.).
+
+Instalasi Starship Windows:
+
+```console
+# Menggunakan Winget
+winget install starship
+
+# Menggunakan Scoop
+scoop install starship
+```
+
+1. Instalasi Starship MacOS/Linux:
+
+```console
+# Menggunakan Homebrew
+brew install starship
+
+# Menggunakan Cargo (jika Anda memiliki Rust)
+cargo install starship --locked
+```
+
+Untuk metode instalasi lainnya, kunjungi [dokumentasi resmi](https://www.google.com/search?q=https://starship.rs/guide/%23installation) Starship.
+
+Setelah Starship terinstal, Anda perlu mengaktifkannya di dalam file profil PowerShell Anda.
+
+2. Buka file profil PowerShell Anda.
+
+Jalankan perintah berikut di PowerShell untuk membukanya di Notepad:
+
+```console
+notepad $PROFILE
+```
+
+Jika file belum ada, PowerShell akan menanyakan apakah Anda ingin membuatnya. Pilih Yes.
+
+3. Tambahkan perintah inisialisasi.
+
+Tambahkan baris berikut di akhir file profil Anda:
+
+```console
+Invoke-Expression (&starship init powershell)
+```
+
+Simpan dan tutup file.
+
+**(Opsional)** Atasi Masalah Execution Policy.
+Jika Anda mendapatkan error ...cannot be loaded because running scripts is disabled on this system, jalankan perintah berikut di PowerShell untuk mengizinkan skrip lokal berjalan:
+
+```console
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+Ketik Y dan tekan Enter untuk konfirmasi.
+
+4. Konfigurasi untuk Zsh
+
+Proses untuk Zsh mirip, yaitu dengan mengedit file .zshrc.
+
+Buka file .zshrc Anda.
+
+Jalankan perintah berikut di terminal Anda:
+
+```console
+nano ~/.zshrc
+```
+
+Anda bisa menggunakan editor teks lain seperti vim atau code.
+
+Tambahkan perintah inisialisasi.
+
+Tambahkan baris berikut di akhir file .zshrc:
+
+```console
+eval "$(starship init zsh)"
+```
+
+Simpan dan tutup file.
+
+Jika menggunakan nano, tekan Ctrl+X, lalu Y, dan Enter.
+
+Muat ulang konfigurasi dengan menjalankan: source ~/.zshrc
+
+5. Memilih dan Menerapkan Preset
+
+Starship menyediakan beberapa preset tampilan yang bisa langsung Anda gunakan.
+
+Lihat daftar preset yang tersedia.
+
+Jalankan perintah ini untuk melihat semua pilihan preset:
+
+```console
+starship preset -l
+```
+
+Pilih dan terapkan preset.
+
+Gunakan perintah berikut untuk menerapkan preset yang Anda suka. Ganti bracketed-segments dengan nama preset pilihan Anda.
+
+```console
+starship preset bracketed-segments -o ~/.config/starship.toml
+```
+
+**(Opsional)** Atasi Masalah "Path Not Found".
+
+Jika Anda mendapatkan error The system cannot find the path specified atau No such file or directory, itu karena folder .config belum ada. Buat folder tersebut terlebih dahulu:
+
+Di Windows (PowerShell):
+
+```console
+mkdir ~/.config
+```
+
+Di macOS/Linux:
+
+```console
+mkdir -p ~/.config
+```
+
+Setelah itu, jalankan kembali perintah starship preset ... di atas.
+
+6. Langkah Terakhir
+
+Mulai ulang terminal Anda!
+
+Tutup dan buka kembali PowerShell atau terminal Zsh Anda untuk melihat prompt Starship yang baru dan keren. Selamat menikmati!
