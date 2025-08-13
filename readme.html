@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Penyiapan WSL untuk Pengembangan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .code-block {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background-color: #374151;
+            color: #d1d5db;
+            border: 1px solid #4b5563;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .copy-btn:hover {
+            background-color: #4b5563;
+        }
+        .copy-btn:active {
+            background-color: #1f2937;
+        }
+        .copied-feedback {
+            position: absolute;
+            top: 0.8rem;
+            right: 0.8rem;
+            background-color: #10B981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 leading-relaxed">
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">Panduan Penyiapan WSL</h1>
+            <p class="text-lg text-gray-400">Ringkasan lengkap untuk lingkungan pengembangan Web & Analisis Data.</p>
+        </header>
+
+        <!-- Section: Pemilihan Distro & Instalasi Awal -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">1. Pemilihan Distro & Instalasi Awal</h2>
+            
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Langkah A: Persiapan Awal WSL</h3>
+            <p class="mb-4">Sebelum menginstal distro, pastikan fitur WSL sudah aktif di Windows. Buka <strong>PowerShell sebagai Administrator</strong> dan jalankan perintah berikut. Perintah ini akan mengurus semua yang diperlukan.</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">wsl --install</code></pre>
+            </div>
+            <p class="text-sm text-gray-400">Anda mungkin perlu me-restart komputer Anda setelah proses ini selesai.</p>
+            
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Langkah B: Melihat & Menginstal Distro</h3>
+            <p class="mb-4">Setelah WSL aktif, Anda bisa melihat semua distribusi Linux yang tersedia untuk diinstal dari terminal.</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">wsl --list --online</code></pre>
+            </div>
+
+            <p class="mb-4">Gunakan perintah berikut untuk menginstal distro pilihan Anda. Cukup jalankan salah satu.</p>
+            <p class="font-medium text-white">Untuk menginstal Ubuntu (Rekomendasi):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">wsl --install -d Ubuntu</code></pre>
+            </div>
+
+            <p class="font-medium text-white">Untuk menginstal Arch:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">wsl --install -d Arch</code></pre>
+            </div>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Rekomendasi: Ubuntu vs Arch</h3>
+            <p class="mb-4">Untuk pengembangan aplikasi web, Android, dan analisis statistik dengan Python di WSL, <strong>Ubuntu adalah pilihan yang lebih praktis dan stabil</strong>, terutama bagi pemula dan profesional yang menginginkan lingkungan yang "siap pakai".</p>
+            <p><strong>Arch Linux</strong> adalah pilihan yang kuat bagi pengguna berpengalaman yang menginginkan kontrol penuh, sistem minimalis, dan akses ke perangkat lunak terbaru (<em>bleeding-edge</em>).</p>
+            <p class="mt-4 font-medium text-cyan-400">Kesimpulan: <strong>Gunakan Ubuntu</strong> untuk stabilitas dan kemudahan penggunaan.</p>
+        </section>
+
+
+        <!-- Section: Penyiapan Dasar WSL Ubuntu -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">2. Penyiapan Dasar WSL Ubuntu</h2>
+            <p class="mb-4">Langkah pertama setelah menginstal Ubuntu adalah memperbarui sistem dan menginstal perkakas esensial.</p>
+            
+            <p class="mb-2">1. Perbarui daftar paket dan upgrade sistem:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">sudo apt update && sudo apt upgrade -y</code></pre>
+            </div>
+
+            <p class="mb-2">2. Instal perkakas build esensial:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">sudo apt install build-essential -y</code></pre>
+            </div>
+
+            <p class="mb-2">3. Instal Git untuk version control:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">sudo apt install git -y</code></pre>
+            </div>
+
+            <p class="mb-2">4. Konfigurasi Git (ganti dengan info Anda):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">git config --global user.name "Nama Anda"</code></pre>
+            </div>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">git config --global user.email "email@anda.com"</code></pre>
+            </div>
+        </section>
+
+        <!-- Section: Integrasi VS Code -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">3. Integrasi Visual Studio Code</h2>
+            <p class="mb-4">Prinsip utamanya adalah **instal VS Code di Windows**, lalu gunakan ekstensi untuk terhubung ke WSL.</p>
+            <ol class="list-decimal list-inside space-y-2 mb-4">
+                <li>Unduh dan instal <a href="https://code.visualstudio.com/" target="_blank" class="text-cyan-400 hover:underline">VS Code untuk Windows</a>.</li>
+                <li>Buka VS Code, buka panel Ekstensi (Ctrl+Shift+X).</li>
+                <li>Cari dan instal ekstensi **"Remote - WSL"** dari Microsoft.</li>
+            </ol>
+            <p>Untuk membuka proyek, navigasi ke folder proyek di terminal WSL dan jalankan:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">code .</code></pre>
+            </div>
+        </section>
+
+        <!-- Section: Peningkatan Terminal dengan Zsh -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">4. Peningkatan Terminal dengan Zsh</h2>
+            <p class="mb-4">Ganti shell Bash standar dengan Zsh dan plugin untuk pengalaman terminal yang jauh lebih baik.</p>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Langkah 1: Instal Zsh & Oh My Zsh</h3>
+            <p class="mb-2">Instal Zsh:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">sudo apt install zsh -y</code></pre>
+            </div>
+            <p class="mb-2">Instal Oh My Zsh (framework manajemen Zsh):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code></pre>
+            </div>
+            <p class="text-sm text-gray-400">Saat diminta, setujui untuk menjadikan Zsh sebagai shell default Anda.</p>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Langkah 2: Instal Plugin</h3>
+            <p class="mb-2">Instal plugin Autosuggestions (saran berdasarkan histori):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions</code></pre>
+            </div>
+            <p class="mb-2">Instal plugin Syntax Highlighting (mewarnai sintaks perintah):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting</code></pre>
+            </div>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">Langkah 3: Aktifkan Plugin</h3>
+            <p class="mb-2">Buka file `~/.zshrc` dengan editor (misal: `nano ~/.zshrc`) dan ubah baris `plugins` menjadi:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</code></pre>
+            </div>
+             <p>Terapkan perubahan dengan membuka ulang terminal atau menjalankan:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">source ~/.zshrc</code></pre>
+            </div>
+        </section>
+
+        <!-- Section: Penyiapan Lingkungan Pengembangan -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">5. Penyiapan Lingkungan Pengembangan</h2>
+
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">a. Pengembangan Web (Node.js)</h3>
+            <p class="mb-4">Gunakan **nvm (Node Version Manager)** untuk mengelola versi Node.js.</p>
+            <p class="mb-2">1. Instal nvm:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</code></pre>
+            </div>
+            <p class="mb-2">2. Muat ulang terminal Anda, lalu instal versi LTS (Long-Term Support) dari Node.js:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">nvm install --lts</code></pre>
+            </div>
+            
+            <h3 class="text-xl font-semibold text-white mt-6 mb-2">b. Analisis Statistik (Python)</h3>
+            <p class="mb-4">Gunakan **Miniconda** untuk membuat lingkungan Python yang terisolasi.</p>
+            <p class="mb-2">1. Unduh installer Miniconda:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh</code></pre>
+            </div>
+            <p class="mb-2">2. Jalankan installer (ikuti petunjuk di layar):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">bash Miniconda3-latest-Linux-x86_64.sh</code></pre>
+            </div>
+            <p class="mb-2">3. Muat ulang terminal, lalu buat lingkungan baru (ganti 'myenv' dengan nama pilihan Anda):</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">conda create --name myenv python=3.10</code></pre>
+            </div>
+            <p class="mb-2">4. Aktifkan lingkungan:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">conda activate myenv</code></pre>
+            </div>
+            <p class="mb-2">5. Instal pustaka data science populer:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">pip install numpy pandas matplotlib scikit-learn jupyterlab</code></pre>
+            </div>
+        </section>
+
+        <!-- Section: Alat History Shell -->
+        <section>
+            <h2 class="text-3xl font-semibold border-b-2 border-cyan-500 pb-2 mb-6 text-white">6. Alat History Shell (Opsional)</h2>
+            <p class="mb-4">Untuk melihat riwayat perintah dengan lebih canggih, pertimbangkan untuk menginstal salah satu dari alat berikut.</p>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Atuin:</strong> Pilihan paling kuat dengan sinkronisasi antar perangkat dan statistik.</li>
+                <li><strong>HSTR:</strong> Pencarian interaktif yang ringan dan cepat.</li>
+                <li><strong>McFly:</strong> Pengganti `Ctrl+R` yang cerdas dan kontekstual.</li>
+            </ul>
+            <p class="mt-4">Contoh instalasi **Atuin**:</p>
+            <p class="mb-2">1. Jalankan skrip instalasi:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)</code></pre>
+            </div>
+            <p class="mb-2">2. Tambahkan baris berikut ke `~/.zshrc` untuk mengaktifkan Atuin:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">eval "$(atuin init zsh)"</code></pre>
+            </div>
+            <p class="mb-2">3. Muat ulang terminal:</p>
+            <div class="code-block bg-gray-800 rounded-lg my-4">
+                <button class="copy-btn" onclick="copyCode(this)">Salin</button>
+                <pre class="p-4 overflow-x-auto"><code class="language-bash">source ~/.zshrc</code></pre>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const textToCopy = codeBlock.querySelector('code').innerText;
+            
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const originalText = button.innerText;
+            button.style.display = 'none';
+            
+            const feedback = document.createElement('div');
+            feedback.className = 'copied-feedback';
+            feedback.innerText = 'Disalin!';
+            button.parentNode.appendChild(feedback);
+
+            setTimeout(() => {
+                feedback.remove();
+                button.style.display = 'block';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
