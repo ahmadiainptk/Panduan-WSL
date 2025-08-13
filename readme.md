@@ -184,6 +184,28 @@ Aktifkan lingkungan:
 conda activate myenv
 ```
 
+Alternative dengan bawaan Python:
+
+Jika Anda lebih suka solusi yang ringan dan sudah terintegrasi dengan Python.
+
+Instal venv:
+
+```console
+sudo apt install python3-venv -y
+```
+
+Masuk ke folder proyek Anda terlebih dahulu
+
+```console
+python3 -m venv .venv
+```
+
+Aktifkan lingkungan
+
+```console
+source .venv/bin/activate
+```
+
 Instal pustaka data science populer:
 
 ```console
